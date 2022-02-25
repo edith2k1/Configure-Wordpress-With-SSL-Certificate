@@ -98,6 +98,7 @@
 -   Bỏ comment dòng
 
     listen 443 ssl default_server;
+    
     listen [::]:443 ssl default_server;
 
 - Thêm 2 dòng này vô
