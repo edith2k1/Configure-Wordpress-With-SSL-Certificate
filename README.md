@@ -1,3 +1,27 @@
+# Cấu hình IP tĩnh
+        sudo nano /etc/netplan/00-installer-config.yaml
+> Copy đoạn code này vô
+
+        # This is the network config written by 'subiquity'
+        network:
+          ethernets:
+            ens160:
+              dhcp4: no
+              addresses: [172.20.232.100/16]
+              gateway4: 172.20.0.1
+              nameservers:
+                addresses: [8.8.8.8,8.8.4.4]
+          version: 2
+> Save lại, chạy lệnh này
+
+        sudo netplan try --state /etc/netplan
+> Kiểm tra IP đã thiết lập thành công hay chưa
+
+        ip a
+
+![alt](https://i.imgur.com/nSbAw2u.png)
+
+# Cài đặt Wordpress
 **1. Cài đặt dịch vụ Nginx**
 
         sudo -i
@@ -6,113 +30,104 @@
 
         apt install nginx
 
-**2. Cài đặt các gói PHP cần thiết**
+> Lên trình duyệt gõ IP máy để kiểm tra
 
-        add-apt-repository ppa:ondrej/php
+![alt](https://i.imgur.com/4uae3bC.png)
 
-        apt install php7.4-fpm php7.4-curl php7.4-mysql php7.4-xml
-
-**3. Cài đặt dịch vụ MySQL**
+**2.  Cài đặt dịch vụ MySQL**
 
         apt install mysql-server
 
-**4. Tạo database mẫu**
+
+**3. Tạo database mẫu**
 
         mysql -u root -p
 
-        alter user 'root'@'localhost' identified with mysql_native_password by 'Knn2022@';
+        ALTER USER 'root'@'localhost' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'Knn2022@';
 
-        create database my_db;
+        CREATE DATABASE my_db;
 
-        flush privigeles;
+        FLUSH PRIVILEGES;
 
-        quit
+        EXIT
 
-**5. Tải mã nguồn Wordpress**
+**4. Tải mã nguồn Wordpress**
 
         curl -O https://wordpress.org/latest.tar.gz
 
-**6. Giải nén**
+**5. Giải nén**
 
         tar xzvf latest.tar.gz
 
-**7. Copy thư mục Wordpress vào /var/www**
+**6. Copy thư mục Wordpress vào /var/www**
 
         cp -r wordpress/ /var/www/
 
-**8. Đi vào thư mục Wordpress**
+**7. Đi vào thư mục Wordpress**
 
         cd /var/www/wordpress
 
-**9. Copy từ file wp-config-sample.php sang file wp-cpnfig.php**
+**7. Copy file wp-config-sample.php sra file wp-cpnfig.php**
 
-        cp wp-config-sample.php wp-cpnfig.php
+        cp wp-config-sample.php wp-config.php
 
-**10. Chỉnh sửa file wp-config.php**
+**8. Chỉnh sửa file wp-config.php**
 
-- Thêm database_name, user, password
+        nano wp-config.php
 
-- Thêm define('FS_METHOD', 'direct'); ở cuối file
+![alt](https://i.imgur.com/QtTotzj.png)
 
-**11. Cấp quyền 777 cho thư mục Wordpress**
+**9. Cấp quyền 777 cho thư mục Wordpress**
 
         chmod -R 777 ./*
 
-**12. Cấu hình Nginx**
+**10. Cài các gói PHP cần thiết**
+
+        add-apt-repository ppa:ondrej/php
+
+        apt install php7.4-fpm php7.4-mysql
+
+**11. Cấu hình Nginx**
 
         nano /etc/nginx/sites-available/default
 
--   Sửa đổi đường dẫn thư mục root trỏ tới source nguồn wordpress.
--   Thêm 0.0.0.0 vào dòng server_name;
--   Bỏ comment dòng
+![alt](https://i.imgur.com/jp2oz7C.png)
 
-    location ~ \ .php$ {
-
-       include snippets/fastcgi-php.conf;
-       fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-
-    }
-
--   Save file lại
-
-**13. Khởi động lại Nginx**
+**12. Khởi động lại Nginx**
 
         service nginx restart
 
-**14. Gõ IP máy lên kiểm tra**
+**13. Gõ IP máy lên kiểm tra**
 
-**15. Tạo thư mục ssl**
+![alt](https://i.imgur.com/mxv2CQY.png)
+
+# Cấu hình Chứng chỉ SSL
+
+**1. Tạo thư mục ssl**
 
         mkdir /etc/nginx/ssl
 
-**16. Cấp quyền execute**
+**2. Tạo file .crt và file .key**
 
-        chmod 700 /etc/nginc/ssl
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
-**17. Tạo file .crt và file .key**
+**3. Cấp quyền 777**
 
-        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/example.key -out /etc/nginx/ssl/example.crt
+        chmod 700 /etc/nginx/ssl/*
 
-**18. Cấu hình lại Nginx**
+**4. Cấu hình lại Nginx**
 
--   Bỏ comment dòng
+        nano /etc/nginx/sites-available/default
 
-    listen 443 ssl default_server;
-    
-    listen [::]:443 ssl default_server;
-
-- Thêm 2 dòng này vô
-
-        ssl_certificate /etc/nginx/ssl/example.crt
-
-        ssl_certificate_key /etc/nginx/ssl/example.key
+![alt](https://i.imgur.com/YzVUFRf.png)
 
 
-**19. Khởi động lại Nginx**
+**5. Khởi động lại Nginx**
 
         service nginx restart
-        nginx -t
 
-**20. Gõ IP máy lên kiểm tra**
+**6. Gõ https://<IP máy> lên kiểm tra**
+
+![alt](https://i.imgur.com/J2HIvwr.png)
 
 
