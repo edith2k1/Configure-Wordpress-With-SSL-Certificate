@@ -67,7 +67,7 @@
 
         cd /var/www/wordpress
 
-**8. Copy file wp-config-sample.php sra file wp-cpnfig.php**
+**8. Copy file wp-config-sample.php ra file wp-cpnfig.php**
 
         cp wp-config-sample.php wp-config.php
 
