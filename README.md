@@ -67,37 +67,37 @@
 
         cd /var/www/wordpress
 
-**7. Copy file wp-config-sample.php sra file wp-cpnfig.php**
+**8. Copy file wp-config-sample.php sra file wp-cpnfig.php**
 
         cp wp-config-sample.php wp-config.php
 
-**8. Chỉnh sửa file wp-config.php**
+**9. Chỉnh sửa file wp-config.php**
 
         nano wp-config.php
 
 ![alt](https://i.imgur.com/QtTotzj.png)
 
-**9. Cấp quyền 777 cho thư mục Wordpress**
+**10. Cấp quyền 777 cho thư mục Wordpress**
 
         chmod -R 777 ./*
 
-**10. Cài các gói PHP cần thiết**
+**11. Cài các gói PHP cần thiết**
 
         add-apt-repository ppa:ondrej/php
 
         apt install php7.4-fpm php7.4-mysql
 
-**11. Cấu hình Nginx**
+**12. Cấu hình Nginx**
 
         nano /etc/nginx/sites-available/default
 
 ![alt](https://i.imgur.com/jp2oz7C.png)
 
-**12. Khởi động lại Nginx**
+**13. Khởi động lại Nginx**
 
         service nginx restart
 
-**13. Gõ IP máy lên kiểm tra**
+**14. Gõ IP máy lên kiểm tra**
 
 ![alt](https://i.imgur.com/mxv2CQY.png)
 
