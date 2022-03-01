@@ -9,7 +9,7 @@
 
 > Lên trình duyệt gõ IP máy để kiểm tra
 
-![alt](https://i.imgur.com/4uae3bC.png)
+![](https://i.imgur.com/e0iSXbw.png)
 
 **2.  Cài đặt dịch vụ MySQL**
 
@@ -20,9 +20,11 @@
 
         mysql -u root -p
 
-        ALTER USER 'root'@'localhost' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'Knn2022@';
-
         CREATE DATABASE my_db;
+        
+        CREATE USER 'db_user'@'localhost' IDENTIFIED BY '123456';
+
+        GRANT ALL PRIVILEGES ON * . * TO 'db_user'@'localhost';
 
         FLUSH PRIVILEGES;
 
@@ -52,7 +54,7 @@
 
         nano wp-config.php
 
-![alt](https://i.imgur.com/QtTotzj.png)
+![](https://i.imgur.com/bdRnGnE.png)
 
 **10. Cấp quyền 777 cho thư mục Wordpress**
 
@@ -68,7 +70,7 @@
 
         nano /etc/nginx/sites-available/default
 
-![alt](https://i.imgur.com/jp2oz7C.png)
+![](https://i.imgur.com/3u4fyVU.png)
 
 **13. Khởi động lại Nginx**
 
@@ -76,7 +78,7 @@
 
 **14. Gõ IP máy lên kiểm tra**
 
-![alt](https://i.imgur.com/mxv2CQY.png)
+![](https://i.imgur.com/WRddb6I.png)
 
 # Cấu hình Chứng chỉ SSL
 
@@ -90,13 +92,19 @@
 
 **3. Cấp quyền 777**
 
-        chmod 700 /etc/nginx/ssl/*
+        chmod 777 /etc/nginx/ssl/*
 
 **4. Cấu hình lại Nginx**
 
         nano /etc/nginx/sites-available/default
 
-![alt](https://i.imgur.com/YzVUFRf.png)
+> 
+
+        ssl_certificate /etc/nginx/ssl/cert.crt;
+        ssl_certificate_key /etc/nginx/ssl/key.key;
+
+
+![](https://i.imgur.com/9YKGaCQ.png)
 
 
 **5. Khởi động lại Nginx**
@@ -105,6 +113,6 @@
 
 **6. Gõ https://<IP máy> lên kiểm tra**
 
-![alt](https://i.imgur.com/J2HIvwr.png)
+![](https://i.imgur.com/AxdBFFh.png)
 
 
