@@ -70,6 +70,34 @@
 
         nano /etc/nginx/sites-available/default
 
+> 
+
+        server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+
+            # SSL configuration
+            #
+            # listen 443 ssl default_server;
+            # listen [::]:443 ssl default_server;
+
+            root /var/www/wordpress;
+
+            # Add index.php to the list if you are using PHP
+            index index.html index.htm index.php;
+
+            server_name 0.0.0.0;
+
+            location / {
+                    try_files $uri $uri/ =404;
+            }
+            location ~ \.php$ {
+                    include snippets/fastcgi-php.conf;
+                    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+            }
+
+        }
+
 ![](https://i.imgur.com/3u4fyVU.png)
 
 **13. Khởi động lại Nginx**
@@ -100,8 +128,36 @@
 
 > 
 
-        ssl_certificate /etc/nginx/ssl/cert.crt;
-        ssl_certificate_key /etc/nginx/ssl/key.key;
+        server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+
+            # SSL configuration
+            #
+            listen 443 ssl default_server;
+            listen [::]:443 ssl default_server;
+
+
+            ssl_certificate /etc/nginx/ssl/cert.crt;
+            ssl_certificate_key /etc/nginx/ssl/key.key;
+
+            root /var/www/wordpress;
+
+            # Add index.php to the list if you are using PHP
+            index index.html index.htm index.php;
+
+            server_name 0.0.0.0;
+
+            location / {
+                    try_files $uri $uri/ =404;
+            }
+            location ~ \.php$ {
+                    include snippets/fastcgi-php.conf;
+                    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+            }
+
+        }
+
 
 
 ![](https://i.imgur.com/9YKGaCQ.png)
