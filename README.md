@@ -1,11 +1,7 @@
 # Cấu hình Wordpress
 **1. Cài đặt dịch vụ Nginx**
 
-        sudo -i
-
-        apt update
-
-        apt install nginx
+        sudo apt-get install nginx -y
 
 > Lên trình duyệt gõ IP máy để kiểm tra
 
