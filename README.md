@@ -1,18 +1,14 @@
-# Cấu hình Wordpress
-**1. Cài đặt dịch vụ Nginx**
+# How To Create Wordpress Site On Ubuntu Server ?
+
+**1. Install Nginx Service**
 
     sudo apt-get install nginx -y
 
-> Lên trình duyệt gõ IP máy để kiểm tra
+**2. Install MySQL Service**
 
-![](https://i.imgur.com/e0iSXbw.png)
+    sudo apt-get install mysql-server -y
 
-**2.  Cài đặt dịch vụ MySQL**
-
-    apt install mysql-server
-
-
-**3. Tạo database mẫu**
+**3. Create Base Database**
 
     mysql -u root -p
 
@@ -26,31 +22,31 @@
 
     EXIT
 
-**4. Tải mã nguồn Wordpress**
+**4. Download Wordpress Source**
 
     curl -O https://wordpress.org/latest.tar.gz
 
-**5. Giải nén**
+**5. Extract**
 
     tar xzvf latest.tar.gz
 
-**6. Copy thư mục Wordpress vào /var/www**
+**6. Copy Wordpress Source into /var/www**
 
     cp -r wordpress/ /var/www/
 
-**7. Đi vào thư mục Wordpress**
+**7. Go to Wordpress Folder**
 
     cd /var/www/wordpress
 
-**8. Copy file wp-config-sample.php ra file wp-config.php**
+**8. Create wp-config.php File From wp-config-sample.php File**
 
     cp wp-config-sample.php wp-config.php
 
-**9. Chỉnh sửa file wp-config.php**
+**9. Configure wp-config.php File**
 
-    nano wp-config.php
+    vi wp-config.php
 
-> 
+> Copy this into the file
 
     <?php
     define( 'DB_NAME', 'my_db' );
@@ -78,25 +74,21 @@
 
     require_once ABSPATH . 'wp-settings.php';
 
-
-
-![](https://i.imgur.com/deMSrfW.png)
-
-**10. Cấp quyền 777 cho thư mục Wordpress**
+**10. Grant Permission 777 To Wordpress Folder**
 
     chmod -R 777 ./*
 
-**11. Cài các gói PHP cần thiết**
+**11. Install Some PHP Packages To Run Wordpress Source**
 
     add-apt-repository ppa:ondrej/php
 
     apt install php7.4-fpm php7.4-mysql
 
-**12. Cấu hình Nginx**
+**12. Configure Nginx**
 
-    nano /etc/nginx/sites-available/default
+    vi /etc/nginx/sites-available/default
 
-> 
+> Copy this into the file
 
     server {
         listen 80 default_server;
@@ -124,35 +116,29 @@
 
     }
 
-![](https://i.imgur.com/3u4fyVU.png)
-
-**13. Khởi động lại Nginx**
+**13. restart Nginx Service**
 
     service nginx restart
 
-**14. Gõ IP máy lên kiểm tra**
+# How To Install An SSL Certificate On Your WordPress Site ?
 
-![](https://i.imgur.com/WRddb6I.png)
-
-# Cấu hình Chứng chỉ SSL
-
-**1. Tạo thư mục ssl**
+**1. Create ssl Folder**
 
     mkdir /etc/nginx/ssl
 
-**2. Tạo file .crt và file .key**
+**2. Create *.crt and *.key File**
 
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
-**3. Cấp quyền 777**
+**3. Grant Permission 777 To ssl Folder**
 
     chmod 777 /etc/nginx/ssl/*
 
-**4. Cấu hình lại Nginx**
+**4. Reconfigure Nginx**
 
     nano /etc/nginx/sites-available/default
 
-> 
+> Copy this into the file
 
     server {
         listen 80 default_server;
@@ -184,15 +170,6 @@
 
     }
 
-![](https://i.imgur.com/9YKGaCQ.png)
-
-
-**5. Khởi động lại Nginx**
+**5. Restart Nginx Service**
 
     service nginx restart
-
-**6. Gõ https://<IP máy> lên kiểm tra**
-
-![](https://i.imgur.com/AxdBFFh.png)
-
-
