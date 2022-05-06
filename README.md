@@ -136,7 +136,7 @@
 
     mkdir /etc/nginx/ssl
 
-**2. Create *.crt and *.key File**
+**2. Create .crt and .key File**
 
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
