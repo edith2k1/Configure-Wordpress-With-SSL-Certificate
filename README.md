@@ -38,7 +38,7 @@
 
     tar xzvf latest.tar.gz
 
-**6. Copy Wordpress Source into /var/www**
+**6. Copy Wordpress Source to /var/www**
 
     cp -r wordpress/ /var/www/
 
@@ -54,7 +54,7 @@
 
     vi wp-config.php
 
-> Copy this into the file
+> Copy this to the file
 
     <?php
     define( 'DB_NAME', 'my_db' );
@@ -96,7 +96,7 @@
 
     vi /etc/nginx/sites-available/default
 
-> Copy this into the file
+> Copy this to the file
 
     server {
         listen 80 default_server;
@@ -148,7 +148,7 @@
 
     nano /etc/nginx/sites-available/default
 
-> Copy this into the file
+> Copy this to the file
 
     server {
         listen 80 default_server;
