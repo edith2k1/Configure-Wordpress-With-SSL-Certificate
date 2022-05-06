@@ -1,7 +1,7 @@
 # Cấu hình Wordpress
 **1. Cài đặt dịch vụ Nginx**
 
-        sudo apt-get install nginx -y
+    sudo apt-get install nginx -y
 
 > Lên trình duyệt gõ IP máy để kiểm tra
 
@@ -9,74 +9,74 @@
 
 **2.  Cài đặt dịch vụ MySQL**
 
-        apt install mysql-server
+    apt install mysql-server
 
 
 **3. Tạo database mẫu**
 
-        mysql -u root -p
+    mysql -u root -p
 
-        CREATE DATABASE my_db;
+    CREATE DATABASE my_db;
         
-        CREATE USER 'db_user'@'localhost' IDENTIFIED BY '123456';
+    CREATE USER 'db_user'@'localhost' IDENTIFIED BY '123456';
 
-        GRANT ALL PRIVILEGES ON * . * TO 'db_user'@'localhost';
+    GRANT ALL PRIVILEGES ON * . * TO 'db_user'@'localhost';
 
-        FLUSH PRIVILEGES;
+    FLUSH PRIVILEGES;
 
-        EXIT
+    EXIT
 
 **4. Tải mã nguồn Wordpress**
 
-        curl -O https://wordpress.org/latest.tar.gz
+    curl -O https://wordpress.org/latest.tar.gz
 
 **5. Giải nén**
 
-        tar xzvf latest.tar.gz
+    tar xzvf latest.tar.gz
 
 **6. Copy thư mục Wordpress vào /var/www**
 
-        cp -r wordpress/ /var/www/
+    cp -r wordpress/ /var/www/
 
 **7. Đi vào thư mục Wordpress**
 
-        cd /var/www/wordpress
+    cd /var/www/wordpress
 
 **8. Copy file wp-config-sample.php ra file wp-config.php**
 
-        cp wp-config-sample.php wp-config.php
+    cp wp-config-sample.php wp-config.php
 
 **9. Chỉnh sửa file wp-config.php**
 
-        nano wp-config.php
+    nano wp-config.php
 
 > 
 
-        <?php
-        define( 'DB_NAME', 'my_db' );
+    <?php
+    define( 'DB_NAME', 'my_db' );
 
-        /** Database username */
-        define( 'DB_USER', 'db_user' );
+    /** Database username */
+    define( 'DB_USER', 'db_user' );
 
-        /** Database password */
-        define( 'DB_PASSWORD', '123456' );
+    /** Database password */
+    define( 'DB_PASSWORD', '123456' );
 
-        /** Database hostname */
-        define( 'DB_HOST', 'localhost' );
+    /** Database hostname */
+    define( 'DB_HOST', 'localhost' );
 
-        /** Database charset to use in creating database tables. */
-        define( 'DB_CHARSET', 'utf8' );
+    /** Database charset to use in creating database tables. */
+    define( 'DB_CHARSET', 'utf8' );
 
-        /** The database collate type. Don't change this if in doubt. */
-        define( 'DB_COLLATE', '' );
+    /** The database collate type. Don't change this if in doubt. */
+    define( 'DB_COLLATE', '' );
 
-        $table_prefix = 'wp_';
+    $table_prefix = 'wp_';
 
-        define ('FS_METHOD', 'direct');
+    define ('FS_METHOD', 'direct');
 
-        define( 'WP_DEBUG', false );
+    define( 'WP_DEBUG', false );
 
-        require_once ABSPATH . 'wp-settings.php';
+    require_once ABSPATH . 'wp-settings.php';
 
 
 
@@ -84,51 +84,51 @@
 
 **10. Cấp quyền 777 cho thư mục Wordpress**
 
-        chmod -R 777 ./*
+    chmod -R 777 ./*
 
 **11. Cài các gói PHP cần thiết**
 
-        add-apt-repository ppa:ondrej/php
+    add-apt-repository ppa:ondrej/php
 
-        apt install php7.4-fpm php7.4-mysql
+    apt install php7.4-fpm php7.4-mysql
 
 **12. Cấu hình Nginx**
 
-        nano /etc/nginx/sites-available/default
+    nano /etc/nginx/sites-available/default
 
 > 
 
-        server {
-            listen 80 default_server;
-            listen [::]:80 default_server;
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
-            # SSL configuration
-            #
-            # listen 443 ssl default_server;
-            # listen [::]:443 ssl default_server;
+        # SSL configuration
+        #
+        # listen 443 ssl default_server;
+        # listen [::]:443 ssl default_server;
 
-            root /var/www/wordpress;
+        root /var/www/wordpress;
 
-            # Add index.php to the list if you are using PHP
-            index index.html index.htm index.php;
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.php;
 
-            server_name 0.0.0.0;
+        server_name 0.0.0.0;
 
-            location / {
-                    try_files $uri $uri/ =404;
-            }
-            location ~ \.php$ {
-                    include snippets/fastcgi-php.conf;
-                    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-            }
-
+        location / {
+                try_files $uri $uri/ =404;
         }
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        }
+
+    }
 
 ![](https://i.imgur.com/3u4fyVU.png)
 
 **13. Khởi động lại Nginx**
 
-        service nginx restart
+    service nginx restart
 
 **14. Gõ IP máy lên kiểm tra**
 
@@ -138,60 +138,58 @@
 
 **1. Tạo thư mục ssl**
 
-        mkdir /etc/nginx/ssl
+    mkdir /etc/nginx/ssl
 
 **2. Tạo file .crt và file .key**
 
-        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
 **3. Cấp quyền 777**
 
-        chmod 777 /etc/nginx/ssl/*
+    chmod 777 /etc/nginx/ssl/*
 
 **4. Cấu hình lại Nginx**
 
-        nano /etc/nginx/sites-available/default
+    nano /etc/nginx/sites-available/default
 
 > 
 
-        server {
-            listen 80 default_server;
-            listen [::]:80 default_server;
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
-            # SSL configuration
-            #
-            listen 443 ssl default_server;
-            listen [::]:443 ssl default_server;
+        # SSL configuration
+        #
+        listen 443 ssl default_server;
+        listen [::]:443 ssl default_server;
 
 
-            ssl_certificate /etc/nginx/ssl/cert.crt;
-            ssl_certificate_key /etc/nginx/ssl/key.key;
+        ssl_certificate /etc/nginx/ssl/cert.crt;
+        ssl_certificate_key /etc/nginx/ssl/key.key;
 
-            root /var/www/wordpress;
+        root /var/www/wordpress;
 
-            # Add index.php to the list if you are using PHP
-            index index.html index.htm index.php;
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.php;
 
-            server_name 0.0.0.0;
+        server_name 0.0.0.0;
 
-            location / {
-                    try_files $uri $uri/ =404;
-            }
-            location ~ \.php$ {
-                    include snippets/fastcgi-php.conf;
-                    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-            }
-
+        location / {
+                try_files $uri $uri/ =404;
+        }
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         }
 
-
+    }
 
 ![](https://i.imgur.com/9YKGaCQ.png)
 
 
 **5. Khởi động lại Nginx**
 
-        service nginx restart
+    service nginx restart
 
 **6. Gõ https://<IP máy> lên kiểm tra**
 
