@@ -128,6 +128,8 @@
 
     service nginx restart
 
+***
+
 ## How To Install An SSL Certificate On Your WordPress Site ? <a id="ssl"></a>
 
 **1. Create ssl Folder**
