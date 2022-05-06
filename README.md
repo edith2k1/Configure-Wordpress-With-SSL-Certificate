@@ -1,4 +1,12 @@
-# How To Create Wordpress Site On Ubuntu Server ?
+# Content
+
+- [How To Create Wordpress Site On Ubuntu Server ?](#wp)
+
+- [How To Install An SSL Certificate On Your WordPress Site ?](#ssl)
+
+***
+
+## How To Create Wordpress Site On Ubuntu Server ? <a id="wp"></a>
 
 **1. Install Nginx Service**
 
@@ -116,11 +124,11 @@
 
     }
 
-**13. restart Nginx Service**
+**13. Restart Nginx Service**
 
     service nginx restart
 
-# How To Install An SSL Certificate On Your WordPress Site ?
+## How To Install An SSL Certificate On Your WordPress Site ? <a id="ssl"></a>
 
 **1. Create ssl Folder**
 
