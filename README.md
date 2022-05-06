@@ -146,7 +146,7 @@
 
 **4. Reconfigure Nginx**
 
-    nano /etc/nginx/sites-available/default
+    vi /etc/nginx/sites-available/default
 
 > Copy this to the file
 
