@@ -1,6 +1,3 @@
-Click [here](https://github.com/edith2k1){:target="_blank" rel="noopener"} to go to my Quora profile. 
-
-
 # Content
 
 - [How To Create Wordpress Site On Ubuntu Server ?](#wp)
