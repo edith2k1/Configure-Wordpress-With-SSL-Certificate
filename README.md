@@ -18,7 +18,7 @@
 
 **3. Create Base Database**
 
-    mysql -u root -p
+    sudo mysql -u root -p
 
     CREATE DATABASE my_db;
         
@@ -38,13 +38,9 @@
 
     tar xzvf latest.tar.gz
 
-**6. Copy Wordpress Source to /var/www**
+**6. Configure wp-config.php File**
 
-    cp -r wordpress/ /var/www/
-
-**7. Configure wp-config.php File**
-
-    cat > wp-config.php
+    cat > ./wordpress/wp-config.php
 
 > Copy this to the file
 
@@ -73,20 +69,24 @@
     define( 'WP_DEBUG', false );
 
     require_once ABSPATH . 'wp-settings.php';
+    
+**6. Copy Wordpress Source to /var/www**
+
+    sudo cp -r wordpress/ /var/www/
 
 **8. Grant Permission 777 To Wordpress Folder**
 
-    chmod -R 777 /var/www/wordpress/*
+    sudo chmod -R 777 /var/www/wordpress/*
 
 **9. Install Some PHP Packages To Run Wordpress Source**
 
-    add-apt-repository ppa:ondrej/php
+    sudo add-apt-repository ppa:ondrej/php
 
-    apt-get install php7.4-fpm php7.4-mysql -y
+    sudo apt-get install php7.4-fpm php7.4-mysql -y
 
 **10. Configure Nginx**
 
-    vi /etc/nginx/sites-available/default
+    sudo vi /etc/nginx/sites-available/default
 
 > Delete all and Copy this to the file
 
@@ -118,7 +118,7 @@
 
 **13. Restart Nginx Service**
 
-    service nginx restart
+    sudo service nginx restart
 
 ***
 
@@ -126,19 +126,19 @@
 
 **1. Create ssl Folder**
 
-    mkdir /etc/nginx/ssl
+    sudo mkdir /etc/nginx/ssl
 
 **2. Create .crt and .key File**
 
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
 **3. Grant Permission 777 To ssl Folder**
 
-    chmod 777 /etc/nginx/ssl/*
+    sudo chmod 777 /etc/nginx/ssl/*
 
 **4. Reconfigure Nginx**
 
-    vi /etc/nginx/sites-available/default
+    sudo vi /etc/nginx/sites-available/default
 
 > Delete all and Copy this to the file
 
@@ -174,4 +174,4 @@
 
 **5. Restart Nginx Service**
 
-    service nginx restart
+    sudo service nginx restart
