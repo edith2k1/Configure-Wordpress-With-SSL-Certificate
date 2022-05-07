@@ -1,4 +1,4 @@
-Click [here](htts://quora.com/profile/Ashish-Kulkarni-100) to go to my Quora profile. 
+Click [here](htts://google.com.vn) to go to my Quora profile. 
 
 
 # Content
