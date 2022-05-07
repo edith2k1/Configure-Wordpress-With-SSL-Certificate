@@ -40,7 +40,7 @@
 
 **6. Configure wp-config.php File**
 
-    cat > ./wordpress/wp-config.php
+    vi ./wordpress/wp-config.php
 
 > Copy this to the file
 
