@@ -10,7 +10,7 @@
 
 **1. Install Nginx Service**
 
-    sudo apt-get install nginx -y
+    sudo apt-get update ; apt-get install nginx -y
 
 **2. Install MySQL Service**
 
@@ -42,17 +42,9 @@
 
     cp -r wordpress/ /var/www/
 
-**7. Go to Wordpress Folder**
+**7. Configure wp-config.php File**
 
-    cd /var/www/wordpress
-
-**8. Create wp-config.php File From wp-config-sample.php File**
-
-    cp wp-config-sample.php wp-config.php
-
-**9. Configure wp-config.php File**
-
-    vi wp-config.php
+    cat > wp-config.php
 
 > Copy this to the file
 
@@ -82,21 +74,21 @@
 
     require_once ABSPATH . 'wp-settings.php';
 
-**10. Grant Permission 777 To Wordpress Folder**
+**8. Grant Permission 777 To Wordpress Folder**
 
-    chmod -R 777 ./*
+    chmod -R 777 /var/www/wordpress/*
 
-**11. Install Some PHP Packages To Run Wordpress Source**
+**9. Install Some PHP Packages To Run Wordpress Source**
 
     add-apt-repository ppa:ondrej/php
 
-    apt install php7.4-fpm php7.4-mysql
+    apt-get install php7.4-fpm php7.4-mysql -y
 
-**12. Configure Nginx**
+**10. Configure Nginx**
 
     vi /etc/nginx/sites-available/default
 
-> Copy this to the file
+> Delete all and Copy this to the file
 
     server {
         listen 80 default_server;
@@ -148,7 +140,7 @@
 
     vi /etc/nginx/sites-available/default
 
-> Copy this to the file
+> Delete all and Copy this to the file
 
     server {
         listen 80 default_server;
