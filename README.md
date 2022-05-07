@@ -78,7 +78,7 @@
 
     sudo chmod -R 777 /var/www/wordpress/*
 
-**9. Install Some PHP Packages To Run Wordpress Source**
+**9. Install Some PHP Packages To Launch Wordpress Source**
 
     sudo add-apt-repository ppa:ondrej/php
 
