@@ -104,7 +104,7 @@
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.php;
 
-        server_name 0.0.0.0;
+        server_name _;
 
         location / {
                 try_files $uri $uri/ =404;
