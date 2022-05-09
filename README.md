@@ -10,7 +10,7 @@
 
 **1. Install Nginx Service**
 
-    sudo apt-get update ; apt-get install nginx -y
+    sudo apt-get update ; sudo apt-get install nginx -y
 
 **2. Install MySQL Service**
 
