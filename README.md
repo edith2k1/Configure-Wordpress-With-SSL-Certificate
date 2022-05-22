@@ -132,9 +132,9 @@
 
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.key -out /etc/nginx/ssl/cert.crt
 
-**3. Grant Permission 777 To ssl Folder**
+**3. Grant Permission 600 To ssl Folder**
 
-    sudo chmod 777 /etc/nginx/ssl/*
+    sudo chmod 600 /etc/nginx/ssl/*
 
 **4. Reconfigure Nginx**
 
